@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Traffic Death Prediction</title>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 40px; background: #f9f9f9; }
+        h1 { color: #2c3e50; }
+        .metrics { margin-top: 30px; }
+        .metrics span { display: block; margin: 5px 0; }
+    </style>
+</head>
+<body>
+    <h1>Actual vs Predicted Traffic Accident Deaths</h1>
+
+    <div class="metrics">
+        <h2>Model Metrics:</h2>
+        <span>MAE: {{ metrics["MAE"] }}</span>
+        <span>MSE: {{ metrics["MSE"] }}</span>
+        <span>R² Score: {{ metrics["R2"] }}</span>
+    </div>
+
+    <div id="plot" style="margin-top: 40px;"></div>
+
+    <script>
+        var plot_data = JSON.parse({{ graphJSON | tojson | safe }});
+        Plotly.newPlot("plot", plot_data.data, plot_data.layout);
+    </script>
+</body>
+</html>
